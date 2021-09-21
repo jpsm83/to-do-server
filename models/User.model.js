@@ -16,6 +16,7 @@ const userSchema = new Schema({
 }, {
   timestamps: true,
   toJSON: {
+    // we change _id for .id - opcional but wide used by developers
     transform: (doc, ret) => {
       ret.id = doc._id;
       delete ret._id;

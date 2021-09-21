@@ -4,10 +4,11 @@ const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 
 module.exports = (app) => {
-  // Identificará a un usuario con una sesión (Asignará a la sesión el id del usuario)
+  // serializeUser assign an user to one session
+  // user.id been change in the model, usualy .id comes as _id
   passport.serializeUser((user, cb) => { cb(null, user.id )});
 
-  // Identificará a qué usuario pertenece la sesión
+  // deserializeUser identify with user belongs the session
   passport.deserializeUser((id, cb) => {
     User.findById(id)
     .then(user => cb(null, user))
@@ -19,19 +20,22 @@ module.exports = (app) => {
     User.findOne({ email })
     .then(user => {
       if(!user){
+        // first param error, second user, third message
         return next(null, false, { message: 'Usuario o contraseña incorrectos.'});
       }
 
       if(bcrypt.compareSync(password, user.password)){
+        // passport is a middleware so it needs 'next' to execute returns
         return next(null, user);
       } else {
+        // passport is a middleware so it needs 'next' to execute returns
         return next(null, false, { message: 'Usuario o contraseña incorrectos'});
       }
     }) 
+    // passport is a middleware so it needs 'next' to execute returns
     .catch((error) => next(error))
   }))
 
   app.use(passport.initialize());
   app.use(passport.session());
-
 }

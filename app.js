@@ -12,10 +12,13 @@ require('./configs/cors.config')(app);
 
 // Session config + Passport
 require('./configs/session.config')(app);
+// remember, code execute in line
+// passport uses session so session comes first tham passport
 require('./configs/passport.config')(app);
 
 const todoRouter = require('./routes/todos.routes');
 const authRouter = require('./routes/auth.routes');
+const passport = require('passport');
 app.use('/api/todos', todoRouter);
 app.use('/api/auth', authRouter);
 
