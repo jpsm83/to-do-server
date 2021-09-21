@@ -3,6 +3,7 @@ const Todo = require('../models/Todo.model');
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
+  // get the to dos from a user that is loggedin req.user.id
   Todo.find({ user: req.user.id })
   .then(todos =>  res.status(200).json(todos))
   .catch(err => res.status(500).json(err))
@@ -10,6 +11,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
   const { id } = req.params;
+  // find a especific to do from a user that is loggedin req.user.id
   Todo.findOne({ _id: id, user: req.user.id  })
   .then(todo => res.status(200).json(todo))
   .catch(err => res.status(500).json(err))

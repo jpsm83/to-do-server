@@ -18,7 +18,6 @@ require('./configs/passport.config')(app);
 
 const todoRouter = require('./routes/todos.routes');
 const authRouter = require('./routes/auth.routes');
-const passport = require('passport');
 app.use('/api/todos', todoRouter);
 app.use('/api/auth', authRouter);
 

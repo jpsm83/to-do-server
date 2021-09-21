@@ -96,7 +96,7 @@ router.get('/loggedin', (req, res, next) => {
   if(req.isAuthenticated()){
     return res.status(200).json(req.user);
   } else {
-    // error 403 - forbidden
+    // error 403 - forbbiden
     return res.status(403).json({ message: 'Forbbiden' });
   }
 })
